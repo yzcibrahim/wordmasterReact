@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import WordAdd from './WordAdd';
 import WordList from './WordList';
 
 class Words extends Component {
@@ -15,11 +16,15 @@ class Words extends Component {
                 { id: '7', word: 'kara', meaning: 'black', lngid: 1 },
             ],
             searchKeyword:'',
-            searchKeywordMe:''
+            searchKeywordMe:'',
+            page:'list'
         }
     }
 
     render() {
+        const retrunToListPage=()=>{
+            this.setState({page:'list'});
+        }
 
         const setFilterVal=(event)=>{
             this.setState({searchKeyword:event.target.value});
@@ -39,8 +44,12 @@ class Words extends Component {
         if(this.state.searchKeywordMe){
             filterd=filterd.filter(c=>c.meaning.startsWith(this.state.searchKeywordMe));
         }
+        if(this.state.page==='list')
+        {
         return (
+
             <div>
+                <button onClick={()=>{this.setState({page:'add'})}}>Yeni</button>
                  <div className='row'>
                 <div className='col-md-4'><input placeholder='word' className='form-control' onChange={setFilterVal} type='text'/></div>
                 <div className='col-md-4'><input placeholder='meaning' className='form-control' onChange={setFilterValMe} type='text'/></div>
@@ -50,6 +59,10 @@ class Words extends Component {
                 </div>
             </div>
         );
+        }
+        else{
+            return <div><WordAdd  returnList={retrunToListPage} /></div>
+        }
     }
 }
 
