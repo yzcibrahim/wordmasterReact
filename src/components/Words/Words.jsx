@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import WordList from './WordList';
 
 class Words extends Component {
     constructor() {
@@ -11,8 +12,10 @@ class Words extends Component {
                 { id: '4', word: 'save', meaning: 'kaydetmek', lngid: 2 },
                 { id: '5', word: 'yaş', meaning: 'age', lngid: 1 },
                 { id: '6', word: 'kırmızı', meaning: 'red', lngid: 1 },
+                { id: '7', word: 'kara', meaning: 'black', lngid: 1 },
             ],
-            searchKeyword:''
+            searchKeyword:'',
+            searchKeywordMe:''
         }
     }
 
@@ -22,34 +25,29 @@ class Words extends Component {
             this.setState({searchKeyword:event.target.value});
         }
 
-        let filterd=this.state.words.filter(c=>c.lngid==this.props.selectedlang);
+        const setFilterValMe=(event)=>{
+            this.setState({searchKeywordMe:event.target.value});
+        }
+
+        let filterd=this.state.words.filter(c=>c.lngid==this.props.selectedlang || this.props.selectedlang===0);
+        
+        
         if(this.state.searchKeyword)
         {
             filterd=filterd.filter(c=>c.word.startsWith(this.state.searchKeyword));
         }
+        if(this.state.searchKeywordMe){
+            filterd=filterd.filter(c=>c.meaning.startsWith(this.state.searchKeywordMe));
+        }
         return (
             <div>
-                <div><input onChange={setFilterVal} type='text'/></div>
-                <table className='wordsTable'>
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Word</th>
-                            <th>Meaning</th>
-                            <th>lng</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filterd.map((wrd) => {
-                            return (<tr>
-                                <td>{wrd.id}</td>
-                                <td>{wrd.word}</td>
-                                <td>{wrd.meaning}</td>
-                                <td>{wrd.lngid}</td>
-                            </tr>)
-                        })}
-                    </tbody>
-                </table>
+                 <div className='row'>
+                <div className='col-md-4'><input placeholder='word' className='form-control' onChange={setFilterVal} type='text'/></div>
+                <div className='col-md-4'><input placeholder='meaning' className='form-control' onChange={setFilterValMe} type='text'/></div>
+                </div>
+                <div className='row'>
+                <div className='col-md-8'><WordList words={filterd}/></div>
+                </div>
             </div>
         );
     }

@@ -18,7 +18,7 @@ class App extends React.Component {
     this.state={
       langs:[{id:1,code:'tr',name:'Türkçe'},
       {id:2,code:'en',name:'İngilizce'}],
-      selectedlang:2
+      selectedlang:0
     }
   }
 
