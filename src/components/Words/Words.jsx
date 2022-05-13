@@ -11,13 +11,25 @@ class Words extends Component {
                 { id: '4', word: 'save', meaning: 'kaydetmek', lngid: 2 },
                 { id: '5', word: 'yaş', meaning: 'age', lngid: 1 },
                 { id: '6', word: 'kırmızı', meaning: 'red', lngid: 1 },
-            ]
+            ],
+            searchKeyword:''
         }
     }
+
     render() {
+
+        const setFilterVal=(event)=>{
+            this.setState({searchKeyword:event.target.value});
+        }
+
         let filterd=this.state.words.filter(c=>c.lngid==this.props.selectedlang);
+        if(this.state.searchKeyword)
+        {
+            filterd=filterd.filter(c=>c.word.startsWith(this.state.searchKeyword));
+        }
         return (
             <div>
+                <div><input onChange={setFilterVal} type='text'/></div>
                 <table className='wordsTable'>
                     <thead>
                         <tr>
