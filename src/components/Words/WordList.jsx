@@ -21,7 +21,7 @@ class WordList extends Component {
                     </thead>
                     <tbody>
                         {this.props.words.map((wrd) => {
-                            return (<tr>
+                            return (<tr key={wrd.id}>
                                 <td>{wrd.id}</td>
                                 <td>{wrd.word}</td>
                                 <td>{wrd.meaning}</td>

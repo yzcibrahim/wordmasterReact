@@ -7,13 +7,14 @@ class Words extends Component {
         super();
         this.state = {
             words: [
-                { id: '1', word: 'white', meaning: 'beyaz', lngid: 2 },
-                { id: '2', word: 'black', meaning: 'siyah', lngid: 2 },
-                { id: '3', word: 'age', meaning: 'yaş', lngid: 2 },
-                { id: '4', word: 'save', meaning: 'kaydetmek', lngid: 2 },
-                { id: '5', word: 'yaş', meaning: 'age', lngid: 1 },
-                { id: '6', word: 'kırmızı', meaning: 'red', lngid: 1 },
-                { id: '7', word: 'kara', meaning: 'black', lngid: 1 },
+                { id: 1, word: 'white', meaning: 'beyaz', lngid: 2 },
+                { id: 2, word: 'black', meaning: 'siyah', lngid: 2 },
+                { id: 3, word: 'age', meaning: 'yaş', lngid: 2 },
+                { id: 4, word: 'tes', meaning: 'test', lngid: 2 },
+                { id: 5, word: 'save', meaning: 'kaydetmek', lngid: 2 },
+                { id: 6, word: 'yaş', meaning: 'age', lngid: 1 },
+                { id: 7, word: 'kırmızı', meaning: 'red', lngid: 1 },
+                { id: 8, word: 'kara', meaning: 'black', lngid: 1 },
             ],
             searchKeyword:'',
             searchKeywordMe:'',
@@ -22,6 +23,9 @@ class Words extends Component {
     }
 
     render() {
+
+       
+
         const retrunToListPage=()=>{
             this.setState({page:'list'});
         }
@@ -36,7 +40,14 @@ class Words extends Component {
 
         let filterd=this.state.words.filter(c=>c.lngid==this.props.selectedlang || this.props.selectedlang===0);
         
-        
+        const refreshWords=(word)=>{
+            let words=this.state.words;
+            word.id=words.slice(-1)[0].id+1;
+            words.push(word);
+            //this.setState({words:words});
+            this.setState({words});
+        }
+
         if(this.state.searchKeyword)
         {
             filterd=filterd.filter(c=>c.word.startsWith(this.state.searchKeyword));
@@ -56,12 +67,13 @@ class Words extends Component {
                 </div>
                 <div className='row'>
                 <div className='col-md-8'><WordList words={filterd}/></div>
+                <div className='col-md-4'><WordAdd refreshWords={refreshWords}  returnList={retrunToListPage} /></div>
                 </div>
             </div>
         );
         }
         else{
-            return <div><WordAdd  returnList={retrunToListPage} /></div>
+            return <div><WordAdd refreshWords={refreshWords}  returnList={retrunToListPage} /></div>
         }
     }
 }

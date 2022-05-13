@@ -47,7 +47,7 @@ class App extends React.Component {
      </div>
      <div className='content row'>
        <div className='col-md-2'><LangBar changeSelectedLang={changeSelectedLang} selectedlang={this.state.selectedlang} langs={this.state.langs} /></div>
-       <div className='col-md-8'>
+       <div className='col-md-10'>
        <Routes>
          <Route path='/' element={<Home />}  ></Route>
          <Route path='/about' element={<About/>} ></Route>
