@@ -67,13 +67,13 @@ class Words extends Component {
                 </div>
                 <div className='row'>
                 <div className='col-md-8'><WordList words={filterd}/></div>
-                <div className='col-md-4'><WordAdd refreshWords={refreshWords}  returnList={retrunToListPage} /></div>
+                <div className='col-md-4'><WordAdd langs={this.props.langs} refreshWords={refreshWords}  returnList={retrunToListPage} /></div>
                 </div>
             </div>
         );
         }
         else{
-            return <div><WordAdd refreshWords={refreshWords}  returnList={retrunToListPage} /></div>
+            return <div><WordAdd langs={this.props.langs} refreshWords={refreshWords}  returnList={retrunToListPage} /></div>
         }
     }
 }

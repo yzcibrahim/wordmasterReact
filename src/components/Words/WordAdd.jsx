@@ -30,7 +30,16 @@ class WordAdd extends Component {
                             meaning:<input onChange={setWordVals} name='meaning' className='form-control' type='text' />
                         </div>
                         <div className='form-group'>
-                        lngid:<input onChange={setWordVals} name='lngid' className='form-control' type='text' />
+                        lngid:
+                        <select className='form-control' name='lngid' onChange={setWordVals}>
+                            {
+                                this.props.langs.map((lng)=>{
+                                    return <option title={lng.name} value={lng.id}>{lng.code}</option>
+                                })
+                            }
+                            
+                          
+                        </select>
                         </div>
                         <div className='form-group'>
                             <button onClick={saveWord}>Kaydet</button>

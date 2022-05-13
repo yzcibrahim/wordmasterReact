@@ -17,7 +17,8 @@ class App extends React.Component {
     super();
     this.state={
       langs:[{id:1,code:'tr',name:'Türkçe'},
-      {id:2,code:'en',name:'İngilizce'}],
+      {id:2,code:'en',name:'İngilizce'},
+      {id:3,code:'fr',name:'Fransızca'}],
       selectedlang:0
     }
   }
@@ -51,7 +52,7 @@ class App extends React.Component {
        <Routes>
          <Route path='/' element={<Home />}  ></Route>
          <Route path='/about' element={<About/>} ></Route>
-         <Route path='/words' element={<Words selectedlang={this.state.selectedlang} />} ></Route>
+         <Route path='/words' element={<Words langs={this.state.langs} selectedlang={this.state.selectedlang} />} ></Route>
        </Routes>
        </div>
      </div>
