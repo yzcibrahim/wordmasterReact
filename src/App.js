@@ -23,6 +23,21 @@ class App extends React.Component {
     }
   }
 
+  componentDidMount(){
+    console.log("test başladı");
+    fetch("http://localhost:41116/api/Lang")
+    .then(res => res.json())
+    .then(
+      (result) => {
+        console.log(result);
+        // this.setState({
+        //   isLoaded: true,
+        //   langs: result
+        // });
+      }
+    )
+  }
+
   
   render(){
     const changeSelectedLang=(sl)=>{
@@ -47,7 +62,7 @@ class App extends React.Component {
         </nav>
      </div>
      <div className='content row'>
-       <div className='col-md-2'><LangBar changeSelectedLang={changeSelectedLang} selectedlang={this.state.selectedlang} langs={this.state.langs} /></div>
+       <div  className='col-md-2'><LangBar changeSelectedLang={changeSelectedLang} selectedlang={this.state.selectedlang} langs={this.state.langs} /></div>
        <div className='col-md-10'>
        <Routes>
          <Route path='/' element={<Home />}  ></Route>
