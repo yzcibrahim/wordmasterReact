@@ -18,7 +18,8 @@ class Words extends Component {
             ],
             searchKeyword:'',
             searchKeywordMe:'',
-            page:'list'
+            page:'list',
+            wordToAddOrUpdate: { id: 0, word: '', meaning: '', lngid: 2 }
         }
     }
 
@@ -45,7 +46,21 @@ class Words extends Component {
             word.id=words.slice(-1)[0].id+1;
             words.push(word);
             //this.setState({words:words});
+          changelang(word.lngid);
             this.setState({words});
+        }
+
+        const changelang=(lng)=>{
+            console.log(this.props.changeSelectedLang);
+            this.props.changeSelectedLang(lng)
+        }
+
+        const deleteword=(wrdId)=>{
+            this.setState({words:this.state.words.filter(c=>c.id!==wrdId)});
+        }
+
+        const updateWord=(wrdId)=>{
+            this.setState({wordToAddOrUpdate:this.state.words.filter(c=>c.id===wrdId)[0]});
         }
 
         if(this.state.searchKeyword)
@@ -66,14 +81,14 @@ class Words extends Component {
                 <div className='col-md-4'><input placeholder='meaning' className='form-control' onChange={setFilterValMe} type='text'/></div>
                 </div>
                 <div className='row'>
-                <div className='col-md-8'><WordList words={filterd}/></div>
-                <div className='col-md-4'><WordAdd langs={this.props.langs} refreshWords={refreshWords}  returnList={retrunToListPage} /></div>
+                <div className='col-md-8'><WordList updateWord={updateWord} deleteword={deleteword} words={filterd}/></div>
+                <div className='col-md-4'><WordAdd wordToAddOrUpdate={this.state.wordToAddOrUpdate} langs={this.props.langs} refreshWords={refreshWords}  returnList={retrunToListPage} /></div>
                 </div>
             </div>
         );
         }
         else{
-            return <div><WordAdd langs={this.props.langs} refreshWords={refreshWords}  returnList={retrunToListPage} /></div>
+            return <div><WordAdd wordToAddOrUpdate={this.state.wordToAddOrUpdate} langs={this.props.langs} refreshWords={refreshWords}  returnList={retrunToListPage} /></div>
         }
     }
 }
